@@ -16,6 +16,7 @@ defmodule Importer.Endpoint do
       File.stream!("/Users/pipefy/importer/file", read_ahead: 100_000)
       |> Stream.chunk_by(&String.ends_with?(&1, "*\n"))
       |> Task.async_stream(&proccess_line(&1))
+      |> Enum.to_list()
     end)
 
     send_resp(conn, 200, "ok")
