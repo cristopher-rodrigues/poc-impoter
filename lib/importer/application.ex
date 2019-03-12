@@ -10,7 +10,8 @@ defmodule Importer.Application do
         plug: Importer.Endpoint,
         # Set the port per environment, see ./config/MIX_ENV.exs
         options: [port: Application.get_env(:importer, :port)]
-      )
+      ),
+      {Task.Supervisor, name: Importer.TaskSupervisor}
     ]
 
     opts = [strategy: :one_for_one, name: Importer.Supervisor]
